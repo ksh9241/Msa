@@ -34,6 +34,9 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         });
     }
 
+    /**
+     * @Description config 필터의 아규먼트로 사용함.
+     * */
     @Data
     public static class Config {
         private String baseMessage;

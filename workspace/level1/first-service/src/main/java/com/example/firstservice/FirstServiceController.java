@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/first-service")
 @Slf4j
 public class FirstServiceController {
+//    @Autowired
     Environment env;
 
-    @Autowired
+//    @Autowired
     public FirstServiceController(Environment env) {
         this.env = env;
     }
@@ -31,4 +34,9 @@ public class FirstServiceController {
         return "First Service Request Header : " + header;
     }
 
+    @GetMapping("/check")
+    public String check(HttpServletRequest request) {
+        log.info(">> Server port={}", request.getServerPort());
+        log.info(">> spring.cloud.client.hostname={}", env.getProperty("spring.cloud.client.hostname")); log.info(">> spring.cloud.client.ip-address={}", env.getProperty("spring.cloud.client.ip-address")); return String.format(">> Hi, there. This is a message from First Service on PORT %s", env.getProperty("local.server.port"));
+    }
 }

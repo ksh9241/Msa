@@ -16,12 +16,13 @@ import com.example.userservice.jpa.UserRepository;
 import com.example.userservice.vo.ResponseOrder;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 		
 	@Override
+	@Transactional
 	public UserDto createUser(UserDto userDto) {
 		userDto.setUserId(UUID.randomUUID().toString());
 		

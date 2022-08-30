@@ -26,7 +26,7 @@ import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user-service")
 public class UserController {
 	@Autowired
 	private Environment environment;
@@ -44,12 +44,15 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public String createUser(@Valid @RequestBody RequestUser requestUser) {
+	public ResponseEntity<ResponseUser> createUser(@Valid @RequestBody RequestUser requestUser) {
 		ModelMapper mapper = new ModelMapper();
 		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		UserDto userDto = mapper.map(requestUser, UserDto.class);
 		userService.createUser(userDto);
-		return "Create user method is called";
+
+//		return new ResponseEntity<>(HttpStatus.CREATED); // 201
+		ResponseUser responseUser = mapper.map(userDto, ResponseUser.class);
+		return ResponseEntity.status(HttpStatus.CREATED).body(responseUser);
 	}
 
 	@GetMapping("/users")
