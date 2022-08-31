@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)  // Not null만 Json으로 변환해라
 public class ResponseOrder {
     private String productId;
     private Integer qty;

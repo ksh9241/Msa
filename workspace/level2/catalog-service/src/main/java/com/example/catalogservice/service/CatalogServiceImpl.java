@@ -10,7 +10,7 @@ import com.example.catalogservice.jpa.CatalogRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor // 파이널이 붙은 인스턴스 생성자를 만들어줌 (롬복)
 public class CatalogServiceImpl implements CatalogService{
     private final CatalogRepository catalogRepository;
 
