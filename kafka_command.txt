@@ -1,0 +1,72 @@
+*  Kafka 명령어 실행
+C:\springboot_cloud\kafka_2.13-2.7.0 디렉토리에서 cmd 창을 열고 아래의 명령을 실행합니다.
+
+https://kafka.apache.org/quickstart 세팅 가이드 사이트
+
+    JAVA_HOME=C:\springboot_cloud\jdk-11.0.2
+    PATH=%JAVA_HOME%\bin;%PATH%
+    KAFKA_HOME=C:\springboot_cloud\kafka_2.13-2.7.0
+
+
+ 1) Zookeeper 실행명령어
+  zookeeper 서버 start 
+ .\bin\zookeeper-server-start.sh  .\config\zookeeper.properties
+ 
+ 2) Kafka Server 실행명령어
+ ./bin/kafka-server-start.sh ./config/server.properties
+
+
+ 3) topic 생성 명령어 
+  cloud-events 라는 이름의 topic 생성
+.\bin\kafka-topics.sh --create --topic  cloud-events --bootstrap-server  localhost:9092 
+
+3-1) topic 확인 명령어  
+  topic 이름 목록 확인
+.\bin\kafka-topics.sh --list --bootstrap-server  localhost:9092  
+
+  topic에 대한 설명 확인
+.\bin\kafka-topics.sh --describe --topic cloud-events --bootstrap-server localhost:9092
+
+ 4) Producer 실행명령어 (메시지 보내기)
+.\bin\kafka-console-producer.sh  --bootstrap-server localhost:9092  --topic  cloud-events
+	한글은 깨지지만 영문 메시지를 보낼 수 있다.
+
+.\bin\kafka-console-producer.sh  --bootstrap-server localhost:9092  --topic  my_topic_users
+
+ 5) Consumer 실행명령어 (메시지 읽기)
+ .\bin\kafka-console-consumer.sh  --bootstrap-server localhost:9092  --topic  cloud-events  --from-beginning
+	* --from-beginning 옵션을 주면 컨슈머가 실행되기 이전의 메시지도 받을 수 있다.
+ .\bin\kafka-console-consumer.sh  --bootstrap-server localhost:9092  --topic  my_topic_users  --from-beginning
+
+ 실행중 문제 발생시 모두 종료하고
+ C:\springboot_cloud\kafka_2.13-2.7.0\log 폴더 삭제후 다시 실행한다.
+--------------------------------------------------------------------------------------------------------
+Kafka Connect 명령어 실행
+    set JAVA_HOME=C:\springboot_cloud\jdk-11.0.2
+    set PATH=%JAVA_HOME%\bin;%PATH%
+    set KAFKA_HOME=C:\springboot_cloud\kafka_2.13-2.7.0
+    set KAFKA_CONNECT_HOME=C:\springboot_cloud\confluent-5.5.2    
+
+C:\springboot_cloud\confluent-5.5.2 디렉토리에서 cmd 창을 열고 아래의 명령을 실행합니다.
+
+Kafka Connect 실행
+start/b .\bin\windows\connect-distributed.bat .\etc\kafka\connect-distributed.properties
+
+Topic 목록 확인
+start/b .\bin\windows\kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+start/i .\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic my_topic_users
+
+Spring Boot 예제로 Producer 와 Consumer 이해하기
+C:\sts-bundle\kafka_2.13-2.5.1\bin  폴더 아래에 쥬키퍼서버와 카프카서버를 start 하는  bat 파일이 있습니다. 
+zoo.bat : zookeeper 서버 start 
+ka.bat : kafka 서버 start
+create.bat : msatopic이라는 topic 생성
+
+ topic 생성된 후에 이름 목록 확인
+ start/b .\bin\windows\kafka-topics.bat --list --bootstrap-server  localhost:9092  
+
+
+
+
+

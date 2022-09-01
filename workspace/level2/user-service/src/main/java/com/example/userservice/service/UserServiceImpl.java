@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,7 @@ import com.example.userservice.vo.ResponseOrder;
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService{
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -29,7 +31,11 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return null;
+		UserEntity userEntity = userRepository.findByEmail(username);
+		if (userEntity == null)
+			throw new UsernameNotFoundException(username + ": not found");
+		return new User(userEntity.getEmail(), userEntity.getEncryptedPwd(),
+				new ArrayList<>());
 	}
 		
 	@Override
@@ -60,5 +66,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Iterable<UserEntity> getUserByAll() {		
 		return userRepository.findAll();
+	}
+
+	@Override
+	public UserDto getUserDetailsByEmail(String email) {
+		UserEntity userEntity = userRepository.findByEmail(email);
+		UserDto userDto = new ModelMapper().map(userEntity, UserDto.class);
+		return userDto;
 	}
 }

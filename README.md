@@ -68,3 +68,36 @@ Spring Boot 가 내부적으로 포함하고 있는 third-party libraries
 
 ### GateWay를 통해서 서버를 호출하는 장점
 - 랜덤 포트를 자주 사용하는데 고정 포트인 게이트웨이를 호출하면 랜덤포트의 서버를 연결시켜주는 장점이 있다.
+
+### JWT
+- JWT의 장점
+  - 서버는 클라이언트와의 세션을 유지할 필요가 없다.
+  - 쿠키를 전달하지 않아도 되므로 쿠키를 사용함으로써 발생하는 취약점이 사라진다. 
+  - 클라이언트가 보낸 토큰만 확인하면 된다.
+
+### 마이크로 서비스 간 통신
+  - RestTemplate
+
+  RestTemplate 클래스는 REST 서비스를 호출하도록 설계되어 HTTP 프로토콜의 메서드 (ex. GET, POST, DELETE, PUT)에 맞는 여러 메서드를 제공합니다.
+
+    - Spring 3.0 부터 지원하는 Spring의 HTTP 통신 템플릿
+    - HTTP요청시JSON,XML,String과같은응답을받을수있는템플릿
+    - Blocking I/O 기반의 동기방식에 사용되는 템플릿
+    - MicroService간의 통신에 사용
+
+### kafka
+kafka는 메시지브로커 프로젝트이다.
+
+- producer/consumer 분리
+- 메시지를 여러 consumer에게 허용
+
+#### kafka Cluster
+Zookeeper 서버에 여러 메타정보를 담아서 브로커로 처리한다.
+
+#### 사용 목적
+MSA는 각각의 DB를 가지고 있기 때문에 각 DB별 데이터처리를 해야하는데 비동기 방식의 MQ(kafka)를 이용하여 요청처리를 진행한다.
+
+#### kafka 실행 명령어
+
+#### Spring From kafka 
+https://spring.io/projects/spring-kafka
