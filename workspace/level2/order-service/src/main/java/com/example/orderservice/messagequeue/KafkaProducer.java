@@ -14,7 +14,9 @@ public class KafkaProducer {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
-    public OrderDto send(String topic, OrderDto orderDto) { ObjectMapper mapper = new ObjectMapper(); String jsonInString = "";
+    public OrderDto send(String topic, OrderDto orderDto) {
+        ObjectMapper mapper = new ObjectMapper(); // jackson 객체인데 객체를 String으로 변환하기 위해
+        String jsonInString = "";
         try {
             jsonInString = mapper.writeValueAsString(orderDto);
         } catch(JsonProcessingException ex) {

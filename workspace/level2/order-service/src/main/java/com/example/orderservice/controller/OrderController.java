@@ -3,6 +3,7 @@ package com.example.orderservice.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.orderservice.messagequeue.KafkaProducer;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.core.env.Environment;
@@ -31,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderController {
     private final Environment env;
     private final OrderService orderService;
+    private final KafkaProducer kafkaProducer;  // final로 만들어서 생성자에 추가하면 DI됨.
 
 
     @GetMapping("/health_check")
@@ -49,6 +51,8 @@ public class OrderController {
         orderDto.setUserId(userId);
         OrderDto createdOrder = orderService.createOrder(orderDto);
         ResponseOrder responseOrder = mapper.map(createdOrder, ResponseOrder.class);
+
+        kafkaProducer.send("example-order-topic", orderDto);    // 오더 생성이후 kafka에 메시지 전달
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseOrder);
     }

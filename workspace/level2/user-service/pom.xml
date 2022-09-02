@@ -70,6 +70,12 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId> <version>0.9.1</version>
         </dependency>
+
+        <!-- LoadBalanced 기능이 적용되어 있다. RestTemplate 대신 많이 사용한다. -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
        
     </dependencies>
     <dependencyManagement>

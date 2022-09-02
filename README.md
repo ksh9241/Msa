@@ -18,7 +18,7 @@ Spring Cloud 구성
 • Load Balancing 
   - Netflix Ribbon
 
-• Circuit Breakers 
+• Circuit Breakers (응답시간이 오래걸릴 때 요청을 계속 기다리지 않고 예외를 던져서 처리한다.)
   - Netflix Hystrix, Resilience4j
 
 •Visibility and monitoring 
@@ -77,6 +77,7 @@ Spring Boot 가 내부적으로 포함하고 있는 third-party libraries
 
 ### 마이크로 서비스 간 통신
   - RestTemplate
+    - 동기방식
 
   RestTemplate 클래스는 REST 서비스를 호출하도록 설계되어 HTTP 프로토콜의 메서드 (ex. GET, POST, DELETE, PUT)에 맞는 여러 메서드를 제공합니다.
 
@@ -101,3 +102,13 @@ MSA는 각각의 DB를 가지고 있기 때문에 각 DB별 데이터처리를 �
 
 #### Spring From kafka 
 https://spring.io/projects/spring-kafka
+
+- zookeeper 서버 띄우기
+- kafka 서버 띄우기
+
+#### kafka offset
+Consumer가 메시지를 읽어들인 위치를 나타냄.
+
+오토커밋이 디폴트 값으로 되어있어서 수동으로 처리하는 게 좋음
+
+https://skywingzz.github.io/kafka/kafka-offset/
