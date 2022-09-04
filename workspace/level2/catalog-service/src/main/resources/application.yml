@@ -36,6 +36,7 @@ logging:
   level:
     com.example.catalogservice: DEBUG
 
+# kafka settings
 catalog:
   topic:
     name: example-order-topic

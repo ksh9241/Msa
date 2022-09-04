@@ -20,6 +20,7 @@ public class KafkaConsumer {
     @Autowired
     CatalogRepository repository;
 
+    // KafkaProducer 에서 던진 topics 값과 동일 할 때?
     @KafkaListener(topics = "example-order-topic")
     public void updateQty(String kafkaMessage, Acknowledgment acknowledgment) {
         log.info("Kafka Message: ->" + kafkaMessage);
@@ -32,6 +33,8 @@ public class KafkaConsumer {
             ex.printStackTrace();
         }
         CatalogEntity entity = repository.findByProductId((String)map.get("productId"));
+
+        // kafka를 통해 역직렬화하여 데이터로 변환한 뒤 개수 컬럼값을 읽어서 수량 현행화를 진행한다.
         if (entity != null) {
             entity.setStock(entity.getStock() - (Integer)map.get("qty"));
             repository.save(entity);

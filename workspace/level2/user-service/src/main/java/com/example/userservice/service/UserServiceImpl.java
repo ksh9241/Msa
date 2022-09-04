@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService{
 		List<ResponseOrder> orderList = orderListResponse.getBody();
 		*/
 
-		// OpenFeign 사용
+		// OpenFeign 사용 orderServiceClient를 사용하여 동시방식 통신
 		List<ResponseOrder> orderList = null;
 		try {
 			orderList = orderServiceClient.getOrders(userId);

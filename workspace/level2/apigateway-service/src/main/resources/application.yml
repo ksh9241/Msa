@@ -1,6 +1,8 @@
 server:
   port: 8000
 
+# Eureka : 클라우드 환경의 다수의 서비스(예: API 서버)들의 로드 밸런싱 및 장애 조치 목적을 가진 미들웨어서버이다.
+# IP / PORT /InstanceId를 가지고 있고 REST기반으로 작동한다.
 eureka:
   client:
     register-with-eureka: true
@@ -11,7 +13,7 @@ eureka:
 spring:
   application:
     name: apigateway-service
-      
+# Filter 설정
   cloud:
     gateway:
       default-filters:

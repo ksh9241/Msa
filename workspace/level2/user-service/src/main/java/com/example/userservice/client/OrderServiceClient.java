@@ -14,7 +14,7 @@ import java.util.List;
 @FeignClient(name = "order-service", fallbackFactory = OrderServiceClientFallFactory.class)
 public interface OrderServiceClient {
 
-    @GetMapping("/order-service/{userId}/orders_2")   // /gateway url/controller url
+    @GetMapping("/order-service/{userId}/orders")   // /gateway url/controller url
     List<ResponseOrder> getOrders(@PathVariable String userId) throws Exception;
 }
 
